@@ -1,0 +1,11 @@
+{
+  "name": "inventory",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "dependencies": {
+    "@apollo/federation": "latest",
+    "apollo-server": "latest",
+    "graphql": "latest"
+  }
+}

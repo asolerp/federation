@@ -1,0 +1,47 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./manifests/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: asolerp/accounts
+      context: accounts
+      docker:
+        dockerfile: Dockerfile
+
+    - image: asolerp/inventory
+      context: inventory
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+    - image: asolerp/products
+      context: products
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+    - image: asolerp/reviews
+      context: reviews
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+    - image: asolerp/gateway
+      context: gateway
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
