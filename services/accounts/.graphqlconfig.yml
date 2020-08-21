@@ -1,0 +1,8 @@
+projects:
+  prisma:
+    schemaPath: /generated/prisma-schema.graphql
+    extensions:
+      prisma: database/prisma.yml
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma

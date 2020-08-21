@@ -1,0 +1,15 @@
+{
+  "name": "accounts",
+  "scripts": {
+    "start": "nodemon ./src/index.js"
+  },
+  "dependencies": {
+    "@apollo/federation": "latest",
+    "apollo-server": "latest",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "prisma-binding": "^2.3.16",
+    "prisma-client-lib": "^1.34.10"
+  }
+}

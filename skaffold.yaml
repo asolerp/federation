@@ -3,34 +3,15 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./manifests/*
+      - ./services/manifests/accounts-mongo-dpl.yml
+      - ./services/manifests/accounts-dpl.yml
+      - ./apigetaway/manifests/gateway-dpl.yml
 build:
   local:
     push: false
   artifacts:
     - image: asolerp/accounts
-      context: accounts
-      docker:
-        dockerfile: Dockerfile
-
-    - image: asolerp/inventory
-      context: inventory
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.js'
-            dest: .
-    - image: asolerp/products
-      context: products
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.js'
-            dest: .
-    - image: asolerp/reviews
-      context: reviews
+      context: services/accounts
       docker:
         dockerfile: Dockerfile
       sync:
@@ -38,10 +19,11 @@ build:
           - src: 'src/**/*.js'
             dest: .
     - image: asolerp/gateway
-      context: gateway
+      context: apigetaway/gateway
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: 'src/**/*.js'
             dest: .
+        

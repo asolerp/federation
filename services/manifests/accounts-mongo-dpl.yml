@@ -1,0 +1,31 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mongo-accounts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-accounts
+  template:
+    metadata:
+      labels:
+        app: mongo-accounts
+    spec:
+      containers:
+        - name: mongo-accounts
+          image: mongo      
+
+---
+
+kind: Service
+apiVersion: v1
+metadata: 
+  name: mongo-accounts
+spec:
+  selector:
+    app: mongo-accounts
+  ports:
+    - port: 27017
+      nodePort: 30001
+  type: NodePort
