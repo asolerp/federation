@@ -8,10 +8,12 @@ const Mutation = {
       data: {...args, password: await encrypt(args.password)}
     },info)
 
-    return jwt.sign({
+    const authToken = jwt.sign({
       id: user.id,
       email: user.email
-    }, 'hola')
+    }, 'f1BtnWgD3VKY')
+
+    return  { token: authToken } 
 
   }
 }

@@ -19,7 +19,10 @@ const User = require('./resolvers/User')
 
 
 const server = new ApolloServer({
-  context: (req) => ({...req, db}),
+  context: ({req}) => {
+    const user = req.headers.user ? JSON.parse(req.headers.user) : null;
+    return { ...req, db, user }
+  },
   // context: (req) => {
   //   const user = req.headers.user ? JSON.parse(req.headers.user) : null;
   //   return { ...req, db, user}

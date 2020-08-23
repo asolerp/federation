@@ -13,17 +13,17 @@ const gateway = new ApolloGateway({
     // { name: 'products', url: 'http://products:4003/' },
     // { name: 'inventory', url: 'http://inventory:4004/' },
   ],
-  // buildService({ name, url }) {
-  //   return new RemoteGraphQLDataSource({
-  //     url,
-  //     willSendRequest({ request, context }) {
-  //       request.http.headers.set(
-  //         "user",
-  //         context.user ? JSON.stringify(context.user) : null
-  //       );
-  //     }
-  //   });
-  // },
+  buildService({ name, url }) {
+    return new RemoteGraphQLDataSource({
+      url,
+      willSendRequest({ request, context }) {
+        request.http.headers.set(
+          "user",
+          context.user ? JSON.stringify(context.user) : null
+        );
+      }
+    });
+  },
   __exposeQueryPlanExperimental: false,
 });
 
@@ -32,10 +32,13 @@ const gateway = new ApolloGateway({
     gateway,
     engine: false,
     subscriptions: false,
-    // context: ({ req }) => {
-    //   const user = req.user || null;
-    //   return { user };
-    // }
+    context: ({ req }) => {
+      console.log(req.req)
+      // const header =  req.headers.authorization;
+      // console.log(header)
+      const user = req.user || null;
+      return { user };
+    }
   });
 
   server.applyMiddleware({ app, path });
