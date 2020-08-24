@@ -11,7 +11,7 @@ data:
     databases:
       default:
         connector: mongo
-        uri: mongodb://mongo-accounts:27017/accounts
+        uri: mongodb://accounts-mongo:27017/accounts
 
 ---
 apiVersion: apps/v1

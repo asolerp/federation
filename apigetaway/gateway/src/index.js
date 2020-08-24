@@ -33,9 +33,6 @@ const gateway = new ApolloGateway({
     engine: false,
     subscriptions: false,
     context: ({ req }) => {
-      console.log(req.req)
-      // const header =  req.headers.authorization;
-      // console.log(header)
       const user = req.user || null;
       return { user };
     }

@@ -15,7 +15,7 @@ spec:
       initContainers:
         - name: wait-gateway
           image: busybox:1.30.0
-          command: ['sh', '-c', 'sleep 20']
+          command: ['sh', '-c', 'sleep 30']
       containers:
         - name: gateway
           image: asolerp/gateway:latest

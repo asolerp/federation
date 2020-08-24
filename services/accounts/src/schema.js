@@ -1,6 +1,5 @@
 const { gql } = require("apollo-server-express");
 
-
 const typeDefs = gql`
 
   type User @key(fields: "id") {
@@ -12,12 +11,14 @@ const typeDefs = gql`
   }
 
   extend type Query {
+    me: User
     user(id: ID!): User
     users: [User]
+    loginUser(email: String, password: String): String
   }
 
   extend type Mutation {
-    signUpUser(id: String, name: String, email: String, password: String): AuthPayLoad!
+    signUpUser(id: String, name: String, email: String, password: String): String
   }
 
   type AuthPayLoad {
