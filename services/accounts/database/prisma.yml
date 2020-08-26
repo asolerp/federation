@@ -1,12 +1,15 @@
 endpoint: http://prisma-accounts:4466/accounts/dev
 datamodel: datamodel.prisma
 databaseType: document
-secret: mysecret
 
 generate:
+  - generator: typescript-client
+    output: ../src/generated/prisma-client/
   - generator: graphql-schema
-    output: ../generated/prisma-schema.graphql
+    output: ../src/generated/prisma-schema.graphql
 
 hooks:
   post-deploy:
     - prisma generate
+    - graphql get-schema -p prisma
+    - graphql codegen

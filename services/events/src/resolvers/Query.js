@@ -1,10 +1,13 @@
 const { comparePassword } = require('../utils/encryption')
+const { assertAuthenticated } = require('../perm')
+const jwt = require('jsonwebtoken')
+
 
 const Query = {
 
   // LOGIN USER
   async loginUser(info, args, context) {
-    const user = await context.db.query.use({
+    const user = await context.db.query.user({
       where: {
         email: args.email,
       }
@@ -21,10 +24,11 @@ const Query = {
   },
 
   // GET USER LOGED IN
-  async me (info, args, { db, user }) {
-    return await db.query.user({
+  async me (info, args, context) {
+    assertAuthenticated(context)
+    return await context.db.query.user({
       where: {
-        id: user.id
+        id: context.user.id
       }
     }, info)
   },

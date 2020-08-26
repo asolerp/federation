@@ -27,7 +27,7 @@ const server = new ApolloServer({
     const user = req.headers.user ? JSON.parse(req.headers.user) : null;
     return { ...req, db, user }
   },
-  schema: applyMiddleware(buildFederatedSchema([
+  schema: buildFederatedSchema([
     {
       typeDefs,
       resolvers: {
@@ -36,7 +36,7 @@ const server = new ApolloServer({
         Query
       },
     }
-  ]),permissions)
+  ])
 });
 
 server.listen({ port }).then(({ url }) => {

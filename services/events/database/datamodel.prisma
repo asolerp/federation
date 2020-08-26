@@ -12,4 +12,13 @@ type User implements Model {
   name: String
   password: String!
   phone: String
+  events: [Event]
+}
+
+
+type Event {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String!
 }

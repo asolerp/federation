@@ -1,25 +1,33 @@
-'use strict';
-const { ApolloServer } = require('apollo-server-express');
-const { ApolloGateway, RemoteGraphQLDataSource } = require('@apollo/gateway');
-const { app } = require('./app')
 
-const path = '/graphql';
+import { ApolloServer } from 'apollo-server-express'
+import { GraphQLRequest } from "apollo-server-core";
+import { ApolloGateway, RemoteGraphQLDataSource } from '@apollo/gateway'
+import { ReqWithUser } from './middlewares/req-user'
+import { app } from './app'
+
+
+
+
+interface ContextWithUser {  
+  user?: string | null 
+}
+
+
+
+const path = '/';
 
 
 const gateway = new ApolloGateway({
   serviceList: [
     { name: 'accounts', url: 'http://accounts:4001/' },
-    // { name: 'reviews', url: 'http://reviews:4002/' },
-    // { name: 'products', url: 'http://products:4003/' },
-    // { name: 'inventory', url: 'http://inventory:4004/' },
   ],
   buildService({ name, url }) {
     return new RemoteGraphQLDataSource({
       url,
-      willSendRequest({ request, context }) {
-        request.http.headers.set(
+      willSendRequest({ request, context } : { request: GraphQLRequest, context: ContextWithUser }) {
+        request.http!.headers.set(
           "user",
-          context.user ? JSON.stringify(context.user) : null
+          context.user ? JSON.stringify(context.user) : '{}'
         );
       }
     });
@@ -32,7 +40,7 @@ const gateway = new ApolloGateway({
     gateway,
     engine: false,
     subscriptions: false,
-    context: ({ req }) => {
+    context: ({ req }: ReqWithUser ) => {
       const user = req.user || null;
       return { user };
     }

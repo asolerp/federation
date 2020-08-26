@@ -11,7 +11,7 @@ data:
     databases:
       default:
         connector: mongo
-        uri: mongodb://accounts-mongo:27017/accounts
+        uri: mongodb+srv://admin:Ayc.051213@federation.i80y9.mongodb.net/federation?retryWrites=true&w=majority
 
 ---
 apiVersion: apps/v1
