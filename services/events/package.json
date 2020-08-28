@@ -1,5 +1,5 @@
 {
-  "name": "events",
+  "name": "events-micro",
   "scripts": {
     "start": "ts-node-dev ./src/index.ts"
   },

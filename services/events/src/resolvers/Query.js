@@ -1,8 +1,3 @@
-const { comparePassword } = require('../utils/encryption')
-const { assertAuthenticated } = require('../perm')
-const jwt = require('jsonwebtoken')
-
-
 const Query = {
 
   // GET USER LOGED IN

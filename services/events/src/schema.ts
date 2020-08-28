@@ -11,9 +11,6 @@ const typeDefs = gql`
     event: Event
   }
 
-  extend type Mutation {
-  }
-
 
 `
 
