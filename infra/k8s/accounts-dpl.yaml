@@ -60,6 +60,14 @@ spec:
         - name: accounts
           image: asolerp/accounts:latest
           env:
+            - name: NATS_CLIEND_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: federation
             - name: PRISMA_URL
               value: "http://prisma-accounts:4466/accounts/dev"
 

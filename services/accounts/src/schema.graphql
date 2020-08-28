@@ -1,8 +1,4 @@
-const { gql } = require("apollo-server-express");
-
-const typeDefs = gql`
-
-  type User @key(fields: "id") {
+type User @key(fields: "id") {
     id: ID!
     email: String!
     name: String
@@ -20,10 +16,3 @@ const typeDefs = gql`
   extend type Mutation {
     signUpUser(id: String, name: String, email: String, password: String): String
   }
-
-
-`
-
-module.exports = {
-  typeDefs
-}

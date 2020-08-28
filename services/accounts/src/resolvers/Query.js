@@ -1,12 +1,12 @@
-import { comparePassword } from '../utils/encryption'
-import { assertAuthenticated } from '../perm'
-import jwt from 'jsonwebtoken'
+const { comparePassword } = require('../utils/encryption')
+const { assertAuthenticated } = require('../perm')
+const jwt = require('jsonwebtoken')
 
 
 const Query = {
 
   // LOGIN USER
-  async loginUser(info: any, args: any, context: any) {
+  async loginUser(info, args, context) {
     const user = await context.db.query.user({
       where: {
         email: args.email,
@@ -24,7 +24,7 @@ const Query = {
   },
 
   // GET USER LOGED IN
-  async me (info: any, args: any, context: any) {
+  async me (info, args, context) {
     assertAuthenticated(context)
     return await context.db.query.user({
       where: {
@@ -34,16 +34,16 @@ const Query = {
   },
 
   // GET USER BY ID
-  async user (info: any, args: any, context: any) {
+  async user (info, args, context) {
     return await context.db.query.user({
       where: {...args}
     },info)
   },
 
   // GET ALL USERS
-  async users(info: any, args: any, context: any) {
+  async users(info, args, context) {
     return await context.db.query.users()
   }
 }
 
-export default Query
+module.exports = Query

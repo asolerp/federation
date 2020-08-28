@@ -13,13 +13,13 @@ interface ContextWithUser {
 }
 
 
-
 const path = '/';
 
 
 const gateway = new ApolloGateway({
   serviceList: [
     { name: 'accounts', url: 'http://accounts:4001/' },
+    { name: 'events', url: 'http://events:4002/' },
   ],
   buildService({ name, url }) {
     return new RemoteGraphQLDataSource({

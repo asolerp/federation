@@ -3,9 +3,10 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./services/manifests/accounts-mongo-dpl.yml
-      - ./services/manifests/accounts-dpl.yml
-      - ./apigetaway/manifests/gateway-dpl.yml
+      - ./infra/k8s/accounts-dpl.yaml
+      - ./infra/k8s/events-dpl.yaml
+      - ./infra/k8s/gateway-dpl.yaml
+      - ./infra/k8s/nats-dpl.yaml
 build:
   local:
     push: false
@@ -16,7 +17,15 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.js'
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: asolerp/events
+      context: services/events
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
             dest: .
     - image: asolerp/gateway
       context: apigetaway/gateway
@@ -24,6 +33,6 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.js'
+          - src: 'src/**/*.ts'
             dest: .
         

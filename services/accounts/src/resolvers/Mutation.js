@@ -1,9 +1,9 @@
-import { encrypt } from '../utils/encryption'
-import jwt from 'jsonwebtoken'
+const { encrypt } = require('../utils/encryption')
+const jwt = require ('jsonwebtoken')
 
 
 const Mutation = {
-  async signUpUser(info: any, args: any, context: any) {
+  async signUpUser(info, args, context) {
     const user = await context.db.mutation.createUser({
       data: {...args, password: await encrypt(args.password)}
     },info)
@@ -16,4 +16,4 @@ const Mutation = {
   }
 }
 
-export default Mutation
+module.exports = Mutation

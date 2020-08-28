@@ -4,21 +4,9 @@ interface Model {
   updatedAt: DateTime! @updatedAt
 }
 
-type User implements Model {
+type Event implements Model {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  email: String! @unique
   name: String
-  password: String!
-  phone: String
-  events: [Event]
-}
-
-
-type Event {
-  id: ID! @id
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  name: String!
 }
