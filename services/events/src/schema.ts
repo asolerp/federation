@@ -8,7 +8,12 @@ const typeDefs = gql`
   }
 
   extend type Query {
-    event: Event
+    event(id: String): Event
+    events: [Event]
+  }
+
+  extend type Mutation {
+    newEvent(name: String): Event
   }
 
 

@@ -6,6 +6,18 @@
 
 ./docker-scripts/wait-for-it.sh prisma-accounts:4466/accounts/dev -- prisma deploy --env-file ./env.dev
 
-cd /app
+# cd /app
 
-npm run start
+# npm run start
+
+#!/bin/bash
+
+# prisma deploy
+
+# cd /app/database 
+# prisma deploy
+
+cd /app
+# go into the project...
+
+ npm run start

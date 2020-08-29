@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -19,6 +20,16 @@ export type Scalars = {
 export type Event = {
   __typename?: 'Event';
   id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  newEvent?: Maybe<Event>;
+};
+
+
+export type MutationNewEventArgs = {
   name?: Maybe<Scalars['String']>;
 };
 
@@ -121,6 +132,7 @@ export type ResolversTypes = ResolversObject<{
   Event: ResolverTypeWrapper<Event>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
 
@@ -130,6 +142,7 @@ export type ResolversParentTypes = ResolversObject<{
   Event: Event;
   ID: Scalars['ID'];
   String: Scalars['String'];
+  Mutation: {};
   Boolean: Scalars['Boolean'];
 }>;
 
@@ -144,9 +157,14 @@ export type EventResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  newEvent?: Resolver<Maybe<ResolversTypes['Event']>, ParentType, ContextType, RequireFields<MutationNewEventArgs, never>>;
+}>;
+
 export type Resolvers<ContextType = any> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   Event?: EventResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
 }>;
 
 

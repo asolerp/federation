@@ -4,8 +4,8 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/accounts-dpl.yaml
-      # - ./infra/k8s/events-dpl.yaml
-      # - ./infra/k8s/gateway-dpl.yaml
+      - ./infra/k8s/events-dpl.yaml
+      - ./infra/k8s/gateway-dpl.yaml
       - ./infra/k8s/nats-dpl.yaml
 build:
   local:
@@ -27,12 +27,12 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    # - image: asolerp/gateway
-    #   context: apigetaway/gateway
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       - src: 'src/**/*.ts'
-    #         dest: .
+    - image: asolerp/gateway
+      context: apigetaway/gateway
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
         

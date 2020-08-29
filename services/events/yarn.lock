@@ -45,9 +45,9 @@
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@ardatan/aggregate-error/-/aggregate-error-0.0.1.tgz#1403ac5de10d8ca689fc1f65844c27179ae1d44f"
 
-"@aspfederation/common@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@aspfederation/common/-/common-1.0.2.tgz#c10af85168ef252b3b971fa2027801e39118e761"
+"@aspfederation/common@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@aspfederation/common/-/common-1.0.5.tgz#43c6d673e72be05fa94a8d0dc1c5711f7babdd8c"
   dependencies:
     "@types/cookie-session" "^2.0.39"
     "@types/express" "^4.17.5"

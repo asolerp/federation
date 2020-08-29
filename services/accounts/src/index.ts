@@ -7,10 +7,11 @@ import { natsWrapper } from './nats-wrapper'
 import { Prisma } from 'prisma-binding'
 import path from 'path'
 import { typeDefs } from './schema'
+import { EventCreatedListener } from "./events/listeners/event-created-listener"
 
 const port = 4001
 
-const db = new Prisma({
+export const db = new Prisma({
   typeDefs: path.resolve(__dirname, '../src/generated/prisma-schema.graphql'),
   endpoint: process.env.PRISMA_URL,
   secret: "mysecret"
@@ -54,6 +55,8 @@ const start = async () => {
 
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
+
+    new EventCreatedListener(natsWrapper.client).listen()
   
   } catch (err) {
     console.log(err)

@@ -1,10 +1,15 @@
 const Query = {
 
-  // GET USER LOGED IN
+  // GET Events
+  async events(info, args, context) {
+    return await context.db.query.events({},info)
+  },
+
+  // GET Event
   async event (info, args, context) {
     return await context.db.query.event({
       where: {
-        id: context.event.id
+        id: args.id
       }
     }, info)
   },

@@ -2,7 +2,7 @@
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-export const typeDefs = /* GraphQL */ `type AggregateUser {
+export const typeDefs = /* GraphQL */ `type AggregateEvent {
   count: Int!
 }
 
@@ -12,132 +12,72 @@ type BatchPayload {
 
 scalar DateTime
 
-scalar Long
-
-type Mutation {
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-}
-
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
-
-interface Node {
-  id: ID!
-}
-
-type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: String
-  endCursor: String
-}
-
-type Query {
-  user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  node(id: ID!): Node
-}
-
-type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-
-type User {
+type Event {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  email: String!
   name: String
-  password: String!
-  phone: String
 }
 
-type UserConnection {
+type EventConnection {
   pageInfo: PageInfo!
-  edges: [UserEdge]!
-  aggregate: AggregateUser!
+  edges: [EventEdge]!
+  aggregate: AggregateEvent!
 }
 
-input UserCreateInput {
+input EventCreateInput {
   id: ID
-  email: String!
   name: String
-  password: String!
-  phone: String
 }
 
-type UserEdge {
-  node: User!
+type EventEdge {
+  node: Event!
   cursor: String!
 }
 
-enum UserOrderByInput {
+enum EventOrderByInput {
   id_ASC
   id_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
-  email_ASC
-  email_DESC
   name_ASC
   name_DESC
-  password_ASC
-  password_DESC
-  phone_ASC
-  phone_DESC
 }
 
-type UserPreviousValues {
+type EventPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  email: String!
   name: String
-  password: String!
-  phone: String
 }
 
-type UserSubscriptionPayload {
+type EventSubscriptionPayload {
   mutation: MutationType!
-  node: User
+  node: Event
   updatedFields: [String!]
-  previousValues: UserPreviousValues
+  previousValues: EventPreviousValues
 }
 
-input UserSubscriptionWhereInput {
+input EventSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: UserWhereInput
-  AND: [UserSubscriptionWhereInput!]
+  node: EventWhereInput
+  AND: [EventSubscriptionWhereInput!]
 }
 
-input UserUpdateInput {
-  email: String
+input EventUpdateInput {
   name: String
-  password: String
-  phone: String
 }
 
-input UserUpdateManyMutationInput {
-  email: String
+input EventUpdateManyMutationInput {
   name: String
-  password: String
-  phone: String
 }
 
-input UserWhereInput {
+input EventWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -168,20 +108,6 @@ input UserWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -196,39 +122,49 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  password: String
-  password_not: String
-  password_in: [String!]
-  password_not_in: [String!]
-  password_lt: String
-  password_lte: String
-  password_gt: String
-  password_gte: String
-  password_contains: String
-  password_not_contains: String
-  password_starts_with: String
-  password_not_starts_with: String
-  password_ends_with: String
-  password_not_ends_with: String
-  phone: String
-  phone_not: String
-  phone_in: [String!]
-  phone_not_in: [String!]
-  phone_lt: String
-  phone_lte: String
-  phone_gt: String
-  phone_gte: String
-  phone_contains: String
-  phone_not_contains: String
-  phone_starts_with: String
-  phone_not_starts_with: String
-  phone_ends_with: String
-  phone_not_ends_with: String
-  AND: [UserWhereInput!]
+  AND: [EventWhereInput!]
 }
 
-input UserWhereUniqueInput {
+input EventWhereUniqueInput {
   id: ID
-  email: String
+}
+
+scalar Long
+
+type Mutation {
+  createEvent(data: EventCreateInput!): Event!
+  updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
+  updateManyEvents(data: EventUpdateManyMutationInput!, where: EventWhereInput): BatchPayload!
+  upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
+  deleteEvent(where: EventWhereUniqueInput!): Event
+  deleteManyEvents(where: EventWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  event(where: EventWhereUniqueInput!): Event
+  events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
+  eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
+  node(id: ID!): Node
+}
+
+type Subscription {
+  event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
 }
 `
