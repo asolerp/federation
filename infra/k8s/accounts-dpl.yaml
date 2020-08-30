@@ -74,7 +74,7 @@ spec:
       containers:
       - env:
         - name: NATS_CLIEND_ID
-          value: metadata.name
+          value: accounts-nats
         - name: NATS_CLUSTER_ID
           value: federation
         - name: NATS_URL

@@ -9,7 +9,9 @@ export class EventCreatedListener extends Listener<EventCreatedEvent> {
   queueGroupName = queueGroupName
 
   async onMessage(data: EventCreatedEvent['data'], msg: Message) {
-    console.log('Nuevo evento', data)
+    const { id, name, version } = data
+    console.log('Nuevo evento', id, name, version)
+    msg.ack()
   }
 
 }

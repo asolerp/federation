@@ -1,5 +1,6 @@
 
-import {  EventCreatedPublisher } from '../events/publisher/event-created-publisher'
+const {  EventCreatedPublisher } = require('../events/publisher/event-created-publisher')
+const { natsWrapper } = require('../nats-wrapper')
 
 const Mutation = {
   async newEvent(info, args, context) {
