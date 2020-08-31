@@ -5,6 +5,7 @@ export interface EventCreatedEvent {
   data: {
     id: string
     version: number
+    userID: string,
     name: string
   }
 }
