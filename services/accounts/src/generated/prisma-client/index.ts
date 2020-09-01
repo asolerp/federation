@@ -112,6 +112,8 @@ export type UserOrderByInput =
   | "email_DESC"
   | "name_ASC"
   | "name_DESC"
+  | "phone_ASC"
+  | "phone_DESC"
   | "password_ASC"
   | "password_DESC";
 
@@ -181,6 +183,20 @@ export interface UserWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  phone?: Maybe<String>;
+  phone_not?: Maybe<String>;
+  phone_in?: Maybe<String[] | String>;
+  phone_not_in?: Maybe<String[] | String>;
+  phone_lt?: Maybe<String>;
+  phone_lte?: Maybe<String>;
+  phone_gt?: Maybe<String>;
+  phone_gte?: Maybe<String>;
+  phone_contains?: Maybe<String>;
+  phone_not_contains?: Maybe<String>;
+  phone_starts_with?: Maybe<String>;
+  phone_not_starts_with?: Maybe<String>;
+  phone_ends_with?: Maybe<String>;
+  phone_not_ends_with?: Maybe<String>;
   password?: Maybe<String>;
   password_not?: Maybe<String>;
   password_in?: Maybe<String[] | String>;
@@ -195,37 +211,115 @@ export interface UserWhereInput {
   password_not_starts_with?: Maybe<String>;
   password_ends_with?: Maybe<String>;
   password_not_ends_with?: Maybe<String>;
+  events_some?: Maybe<EventWhereInput>;
+  events_every?: Maybe<EventRestrictedWhereInput>;
+  events_none?: Maybe<EventRestrictedWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
+}
+
+export interface EventWhereInput {
+  id?: Maybe<String>;
+  id_not?: Maybe<String>;
+  id_in?: Maybe<String[] | String>;
+  id_not_in?: Maybe<String[] | String>;
+  id_lt?: Maybe<String>;
+  id_lte?: Maybe<String>;
+  id_gt?: Maybe<String>;
+  id_gte?: Maybe<String>;
+  id_contains?: Maybe<String>;
+  id_not_contains?: Maybe<String>;
+  id_starts_with?: Maybe<String>;
+  id_not_starts_with?: Maybe<String>;
+  id_ends_with?: Maybe<String>;
+  id_not_ends_with?: Maybe<String>;
+  AND?: Maybe<EventWhereInput[] | EventWhereInput>;
+}
+
+export interface EventRestrictedWhereInput {
+  id?: Maybe<String>;
+  id_not?: Maybe<String>;
+  id_in?: Maybe<String[] | String>;
+  id_not_in?: Maybe<String[] | String>;
+  id_lt?: Maybe<String>;
+  id_lte?: Maybe<String>;
+  id_gt?: Maybe<String>;
+  id_gte?: Maybe<String>;
+  id_contains?: Maybe<String>;
+  id_not_contains?: Maybe<String>;
+  id_starts_with?: Maybe<String>;
+  id_not_starts_with?: Maybe<String>;
+  id_ends_with?: Maybe<String>;
+  id_not_ends_with?: Maybe<String>;
+  AND?: Maybe<EventRestrictedWhereInput[] | EventRestrictedWhereInput>;
 }
 
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
   email: String;
   name?: Maybe<String>;
+  phone?: Maybe<String>;
   password: String;
-  events?: Maybe<UserCreateeventsInput>;
+  events?: Maybe<EventCreateManyInput>;
 }
 
-export interface UserCreateeventsInput {
-  set?: Maybe<String[] | String>;
+export interface EventCreateManyInput {
+  create?: Maybe<EventCreateInput[] | EventCreateInput>;
+}
+
+export interface EventCreateInput {
+  id?: Maybe<String>;
 }
 
 export interface UserUpdateInput {
   email?: Maybe<String>;
   name?: Maybe<String>;
+  phone?: Maybe<String>;
   password?: Maybe<String>;
-  events?: Maybe<UserUpdateeventsInput>;
+  events?: Maybe<EventUpdateManyInput>;
 }
 
-export interface UserUpdateeventsInput {
-  set?: Maybe<String[] | String>;
+export interface EventUpdateManyInput {
+  create?: Maybe<EventCreateInput[] | EventCreateInput>;
+  deleteMany?: Maybe<EventScalarWhereInput[] | EventScalarWhereInput>;
+  updateMany?: Maybe<
+    EventUpdateManyWithWhereNestedInput[] | EventUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface EventScalarWhereInput {
+  id?: Maybe<String>;
+  id_not?: Maybe<String>;
+  id_in?: Maybe<String[] | String>;
+  id_not_in?: Maybe<String[] | String>;
+  id_lt?: Maybe<String>;
+  id_lte?: Maybe<String>;
+  id_gt?: Maybe<String>;
+  id_gte?: Maybe<String>;
+  id_contains?: Maybe<String>;
+  id_not_contains?: Maybe<String>;
+  id_starts_with?: Maybe<String>;
+  id_not_starts_with?: Maybe<String>;
+  id_ends_with?: Maybe<String>;
+  id_not_ends_with?: Maybe<String>;
+  AND?: Maybe<EventScalarWhereInput[] | EventScalarWhereInput>;
+  OR?: Maybe<EventScalarWhereInput[] | EventScalarWhereInput>;
+  NOT?: Maybe<EventScalarWhereInput[] | EventScalarWhereInput>;
+}
+
+export interface EventUpdateManyWithWhereNestedInput {
+  where: EventScalarWhereInput;
+  data: EventUpdateManyDataInput;
+}
+
+export interface EventUpdateManyDataInput {
+  id?: Maybe<String>;
 }
 
 export interface UserUpdateManyMutationInput {
   email?: Maybe<String>;
   name?: Maybe<String>;
+  phone?: Maybe<String>;
   password?: Maybe<String>;
-  events?: Maybe<UserUpdateeventsInput>;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -247,8 +341,9 @@ export interface User {
   updatedAt: DateTimeOutput;
   email: String;
   name?: String;
+  phone?: String;
   password: String;
-  events: String[];
+  events?: <T = FragmentableArray<Event>>() => T;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -257,8 +352,9 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   updatedAt: () => Promise<DateTimeOutput>;
   email: () => Promise<String>;
   name: () => Promise<String>;
+  phone: () => Promise<String>;
   password: () => Promise<String>;
-  events: () => Promise<String[]>;
+  events: <T = FragmentableArray<Event>>() => T;
 }
 
 export interface UserSubscription
@@ -269,8 +365,9 @@ export interface UserSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   email: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
+  phone: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
-  events: () => Promise<AsyncIterator<String[]>>;
+  events: <T = Promise<AsyncIterator<EventSubscription>>>() => T;
 }
 
 export interface UserNullablePromise
@@ -281,8 +378,29 @@ export interface UserNullablePromise
   updatedAt: () => Promise<DateTimeOutput>;
   email: () => Promise<String>;
   name: () => Promise<String>;
+  phone: () => Promise<String>;
   password: () => Promise<String>;
-  events: () => Promise<String[]>;
+  events: <T = FragmentableArray<Event>>() => T;
+}
+
+export interface Event {
+  id?: String;
+}
+
+export interface EventPromise extends Promise<Event>, Fragmentable {
+  id: () => Promise<String>;
+}
+
+export interface EventSubscription
+  extends Promise<AsyncIterator<Event>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<String>>;
+}
+
+export interface EventNullablePromise
+  extends Promise<Event | null>,
+    Fragmentable {
+  id: () => Promise<String>;
 }
 
 export interface UserConnection {
@@ -409,8 +527,8 @@ export interface UserPreviousValues {
   updatedAt: DateTimeOutput;
   email: String;
   name?: String;
+  phone?: String;
   password: String;
-  events: String[];
 }
 
 export interface UserPreviousValuesPromise
@@ -421,8 +539,8 @@ export interface UserPreviousValuesPromise
   updatedAt: () => Promise<DateTimeOutput>;
   email: () => Promise<String>;
   name: () => Promise<String>;
+  phone: () => Promise<String>;
   password: () => Promise<String>;
-  events: () => Promise<String[]>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -433,8 +551,8 @@ export interface UserPreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   email: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
+  phone: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
-  events: () => Promise<AsyncIterator<String[]>>;
 }
 
 /*
@@ -478,6 +596,10 @@ export const models: Model[] = [
   {
     name: "User",
     embedded: false
+  },
+  {
+    name: "Event",
+    embedded: true
   }
 ];
 

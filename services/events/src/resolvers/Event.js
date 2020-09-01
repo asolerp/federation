@@ -1,8 +1,7 @@
-const { db } = require('./index')
-
+const { prisma } = require('../generated/prisma-client')
 const Event = {
-  async __resolveReference(user) {
-      return await db.query.event({ where: { userID: user.id} })
+  async __resolveReference(event) {
+      return await prisma.event({ id: event.id })
   },
   author(event) {
     return { __typename: "User", id: event.userID }

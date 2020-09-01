@@ -4,8 +4,11 @@ const jwt = require ('jsonwebtoken')
 
 const Mutation = {
   async signUpUser(info, args, context) {
-    const user = await context.db.mutation.createUser({
-      data: {...args, password: await encrypt(args.password)}
+    console.log("Args", args)
+    const user = await context.prisma.createUser({
+      name: args.name,
+      email: args.email,
+      password: await encrypt(args.password)
     },info)
 
     return jwt.sign({

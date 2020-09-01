@@ -1,17 +1,18 @@
-interface Model {
-  id: ID! @id
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
 
-type User implements Model {
+type User  {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   email: String! @unique
   name: String
+  phone: String
   password: String!
-  events: [String!]
+  events: [Event!]
 }
+
+type Event @embedded {
+  eventID: String
+}
+
 
 

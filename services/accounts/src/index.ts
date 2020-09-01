@@ -4,7 +4,10 @@ import { buildFederatedSchema } from "@apollo/federation"
 import {resolvers} from './resolvers/index'
 import { natsWrapper } from './nats-wrapper'
 
-import  { db } from './db'
+import {prisma} from './generated/prisma-client';
+
+
+// import  { db } from './db'
 
 import { typeDefs } from './schema'
 import { EventCreatedListener } from "./events/listeners/event-created-listener"
@@ -14,7 +17,7 @@ const port = 4001
 const server = new ApolloServer({
   context: ({req}) => {
     const user = req.headers.user ? JSON.parse(req.headers.user.toString()) : null;
-    return { ...req, db, user }
+    return { ...req, prisma, user }
   },
   schema: buildFederatedSchema([
     {

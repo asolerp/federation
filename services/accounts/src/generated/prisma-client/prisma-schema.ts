@@ -12,6 +12,89 @@ type BatchPayload {
 
 scalar DateTime
 
+type Event {
+  id: String
+}
+
+input EventCreateInput {
+  id: String
+}
+
+input EventCreateManyInput {
+  create: [EventCreateInput!]
+}
+
+input EventRestrictedWhereInput {
+  id: String
+  id_not: String
+  id_in: [String!]
+  id_not_in: [String!]
+  id_lt: String
+  id_lte: String
+  id_gt: String
+  id_gte: String
+  id_contains: String
+  id_not_contains: String
+  id_starts_with: String
+  id_not_starts_with: String
+  id_ends_with: String
+  id_not_ends_with: String
+  AND: [EventRestrictedWhereInput!]
+}
+
+input EventScalarWhereInput {
+  id: String
+  id_not: String
+  id_in: [String!]
+  id_not_in: [String!]
+  id_lt: String
+  id_lte: String
+  id_gt: String
+  id_gte: String
+  id_contains: String
+  id_not_contains: String
+  id_starts_with: String
+  id_not_starts_with: String
+  id_ends_with: String
+  id_not_ends_with: String
+  AND: [EventScalarWhereInput!]
+  OR: [EventScalarWhereInput!]
+  NOT: [EventScalarWhereInput!]
+}
+
+input EventUpdateManyDataInput {
+  id: String
+}
+
+input EventUpdateManyInput {
+  create: [EventCreateInput!]
+  deleteMany: [EventScalarWhereInput!]
+  updateMany: [EventUpdateManyWithWhereNestedInput!]
+}
+
+input EventUpdateManyWithWhereNestedInput {
+  where: EventScalarWhereInput!
+  data: EventUpdateManyDataInput!
+}
+
+input EventWhereInput {
+  id: String
+  id_not: String
+  id_in: [String!]
+  id_not_in: [String!]
+  id_lt: String
+  id_lte: String
+  id_gt: String
+  id_gte: String
+  id_contains: String
+  id_not_contains: String
+  id_starts_with: String
+  id_not_starts_with: String
+  id_ends_with: String
+  id_not_ends_with: String
+  AND: [EventWhereInput!]
+}
+
 scalar Long
 
 type Mutation {
@@ -57,8 +140,9 @@ type User {
   updatedAt: DateTime!
   email: String!
   name: String
+  phone: String
   password: String!
-  events: [String!]!
+  events: [Event!]
 }
 
 type UserConnection {
@@ -67,16 +151,13 @@ type UserConnection {
   aggregate: AggregateUser!
 }
 
-input UserCreateeventsInput {
-  set: [String!]
-}
-
 input UserCreateInput {
   id: ID
   email: String!
   name: String
+  phone: String
   password: String!
-  events: UserCreateeventsInput
+  events: EventCreateManyInput
 }
 
 type UserEdge {
@@ -95,6 +176,8 @@ enum UserOrderByInput {
   email_DESC
   name_ASC
   name_DESC
+  phone_ASC
+  phone_DESC
   password_ASC
   password_DESC
 }
@@ -105,8 +188,8 @@ type UserPreviousValues {
   updatedAt: DateTime!
   email: String!
   name: String
+  phone: String
   password: String!
-  events: [String!]!
 }
 
 type UserSubscriptionPayload {
@@ -125,22 +208,19 @@ input UserSubscriptionWhereInput {
   AND: [UserSubscriptionWhereInput!]
 }
 
-input UserUpdateeventsInput {
-  set: [String!]
-}
-
 input UserUpdateInput {
   email: String
   name: String
+  phone: String
   password: String
-  events: UserUpdateeventsInput
+  events: EventUpdateManyInput
 }
 
 input UserUpdateManyMutationInput {
   email: String
   name: String
+  phone: String
   password: String
-  events: UserUpdateeventsInput
 }
 
 input UserWhereInput {
@@ -202,6 +282,20 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
   password: String
   password_not: String
   password_in: [String!]
@@ -216,6 +310,9 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  events_some: EventWhereInput
+  events_every: EventRestrictedWhereInput
+  events_none: EventRestrictedWhereInput
   AND: [UserWhereInput!]
 }
 

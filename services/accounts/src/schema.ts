@@ -8,13 +8,12 @@ const typeDefs = gql`
     name: String
     password: String!
     phone: String
-    events: [String] 
+    events: [Event!] 
   }
 
-  
-  # extend type Event @key(fields: "id") {
-  #   id: ID! @external
-  # }
+  extend type Event @key(fields: "id") {
+    id: ID! @external
+  }
 
   extend type Query {
     me: User
@@ -24,7 +23,7 @@ const typeDefs = gql`
   }
 
   extend type Mutation {
-    signUpUser(id: String, name: String, email: String, password: String): String
+    signUpUser(id: String, name: String, email: String, password: String, eventos: [String]): String
   }
 
 

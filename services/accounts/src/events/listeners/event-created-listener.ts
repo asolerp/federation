@@ -2,7 +2,7 @@ import { Subjects, Listener, EventCreatedEvent } from '@aspfederation/common'
 import { queueGroupName } from './queue-group-name'
 import { Message } from 'node-nats-streaming'
 
-import { db } from '../../db'
+import { prisma } from '../../generated/prisma-client'
 
 
 export class EventCreatedListener extends Listener<EventCreatedEvent> {
@@ -14,10 +14,10 @@ export class EventCreatedListener extends Listener<EventCreatedEvent> {
     const { id, userID} = data
 
     try {
-
-     await db.mutation.updateUser({
+     console.log("Actualizaond usuario...")
+     await prisma.updateUser({
         where: { id: userID },
-        data: { events: { set: [ id ] } },
+        data: { events: { create: { eventID: id } } },
       })
     } catch (err) {
       console.log(err)

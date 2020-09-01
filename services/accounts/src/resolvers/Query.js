@@ -7,7 +7,7 @@ const Query = {
 
   // LOGIN USER
   async loginUser(info, args, context) {
-    const user = await context.db.query.user({
+    const user = await context.prisma.user({
       where: {
         email: args.email,
       }
@@ -26,7 +26,7 @@ const Query = {
   // GET USER LOGED IN
   async me (info, args, context) {
     assertAuthenticated(context)
-    return await context.db.query.user({
+    return await context.prisma.user({
       where: {
         id: context.user.id
       }
@@ -35,7 +35,7 @@ const Query = {
 
   // GET USER BY ID
   async user (info, args, context) {
-    const user = await context.db.query.user({
+    const user = await context.prisma.user({
       where: {...args}
     },info)
     console.log("user", user.events)
@@ -44,7 +44,9 @@ const Query = {
 
   // GET ALL USERS
   async users(info, args, context) {
-    return await context.db.query.users()
+    const users = await context.prisma.users()
+    console.log(users)
+    return users
   }
 }
 
