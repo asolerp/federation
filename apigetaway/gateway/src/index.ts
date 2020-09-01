@@ -15,7 +15,6 @@ interface ContextWithUser {
 
 const path = '/';
 
-
 const gateway = new ApolloGateway({
   serviceList: [
     { name: 'accounts', url: 'http://accounts:4001/' },

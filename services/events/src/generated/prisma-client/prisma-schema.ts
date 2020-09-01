@@ -16,7 +16,7 @@ type Event {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  name: String
+  name: String!
 }
 
 type EventConnection {
@@ -27,7 +27,7 @@ type EventConnection {
 
 input EventCreateInput {
   id: ID
-  name: String
+  name: String!
 }
 
 type EventEdge {
@@ -50,7 +50,7 @@ type EventPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  name: String
+  name: String!
 }
 
 type EventSubscriptionPayload {

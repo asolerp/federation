@@ -58,7 +58,7 @@ type User {
   email: String!
   name: String
   password: String!
-  phone: String
+  events: [String!]!
 }
 
 type UserConnection {
@@ -67,12 +67,16 @@ type UserConnection {
   aggregate: AggregateUser!
 }
 
+input UserCreateeventsInput {
+  set: [String!]
+}
+
 input UserCreateInput {
   id: ID
   email: String!
   name: String
   password: String!
-  phone: String
+  events: UserCreateeventsInput
 }
 
 type UserEdge {
@@ -93,8 +97,6 @@ enum UserOrderByInput {
   name_DESC
   password_ASC
   password_DESC
-  phone_ASC
-  phone_DESC
 }
 
 type UserPreviousValues {
@@ -104,7 +106,7 @@ type UserPreviousValues {
   email: String!
   name: String
   password: String!
-  phone: String
+  events: [String!]!
 }
 
 type UserSubscriptionPayload {
@@ -123,18 +125,22 @@ input UserSubscriptionWhereInput {
   AND: [UserSubscriptionWhereInput!]
 }
 
+input UserUpdateeventsInput {
+  set: [String!]
+}
+
 input UserUpdateInput {
   email: String
   name: String
   password: String
-  phone: String
+  events: UserUpdateeventsInput
 }
 
 input UserUpdateManyMutationInput {
   email: String
   name: String
   password: String
-  phone: String
+  events: UserUpdateeventsInput
 }
 
 input UserWhereInput {
@@ -210,20 +216,6 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
-  phone: String
-  phone_not: String
-  phone_in: [String!]
-  phone_not_in: [String!]
-  phone_lt: String
-  phone_lte: String
-  phone_gt: String
-  phone_gte: String
-  phone_contains: String
-  phone_not_contains: String
-  phone_starts_with: String
-  phone_not_starts_with: String
-  phone_ends_with: String
-  phone_not_ends_with: String
   AND: [UserWhereInput!]
 }
 

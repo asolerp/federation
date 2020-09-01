@@ -8,5 +8,6 @@ type Event implements Model {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  name: String
+  name: String!
+  userID: String!
 }

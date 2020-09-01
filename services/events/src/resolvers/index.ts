@@ -7,8 +7,10 @@ import Event from './Event'
 
 
 
+
 export const resolvers: Resolvers = {
   Query: Query,
   Mutation: Mutation,
-  Event: <any>Event
+  Event: <any>Event,
+
 }

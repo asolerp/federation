@@ -17,6 +17,12 @@ export type Scalars = {
 
 
 
+export type Event = {
+  __typename?: 'Event';
+  id: Scalars['ID'];
+  createdBy?: Maybe<User>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   signUpUser?: Maybe<Scalars['String']>;
@@ -56,6 +62,7 @@ export type User = {
   name?: Maybe<Scalars['String']>;
   password: Scalars['String'];
   phone?: Maybe<Scalars['String']>;
+  events?: Maybe<Array<Maybe<Event>>>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -152,6 +159,7 @@ export type ResolversTypes = ResolversObject<{
   User: ResolverTypeWrapper<User>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Event: ResolverTypeWrapper<Event>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
@@ -162,6 +170,7 @@ export type ResolversParentTypes = ResolversObject<{
   User: User;
   ID: Scalars['ID'];
   String: Scalars['String'];
+  Event: Event;
   Mutation: {};
   Boolean: Scalars['Boolean'];
 }>;
@@ -180,6 +189,14 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  events?: Resolver<Maybe<Array<Maybe<ResolversTypes['Event']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+}>;
+
+export type EventResolvers<ContextType = any, ParentType extends ResolversParentTypes['Event'] = ResolversParentTypes['Event']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Event']>, { __typename: 'Event' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+
+  createdBy?: Resolver<Maybe<ResolversTypes['User']>, { __typename: 'Event' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
@@ -190,6 +207,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 export type Resolvers<ContextType = any> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  Event?: EventResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 }>;
 

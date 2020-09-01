@@ -1,8 +1,12 @@
+const { db } = require('./index')
+
 const Event = {
-  _resolveReference(object) {
-    let events
-    return events.find((event) => event.id === object.id ) 
-  }
+  async __resolveReference(user) {
+      return await db.query.event({ where: { userID: user.id} })
+  },
+  author(event) {
+    return { __typename: "User", id: event.userID }
+  },
 }
 
 export default Event

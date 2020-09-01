@@ -35,9 +35,11 @@ const Query = {
 
   // GET USER BY ID
   async user (info, args, context) {
-    return await context.db.query.user({
+    const user = await context.db.query.user({
       where: {...args}
     },info)
+    console.log("user", user.events)
+    return user
   },
 
   // GET ALL USERS

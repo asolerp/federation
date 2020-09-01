@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@apollo/federation": "latest",
-    "@aspfederation/common": "1.0.5",
+    "@aspfederation/common": "1.0.6",
     "@graphql-codegen/cli": "^1.17.8",
     "@graphql-codegen/typescript": "^1.17.9",
     "@graphql-codegen/typescript-resolvers": "^1.17.9",

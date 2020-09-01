@@ -167,7 +167,7 @@ export interface EventWhereInput {
 
 export interface EventCreateInput {
   id?: Maybe<ID_Input>;
-  name?: Maybe<String>;
+  name: String;
 }
 
 export interface EventUpdateInput {
@@ -195,7 +195,7 @@ export interface Event {
   id: ID_Output;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  name?: String;
+  name: String;
 }
 
 export interface EventPromise extends Promise<Event>, Fragmentable {
@@ -345,7 +345,7 @@ export interface EventPreviousValues {
   id: ID_Output;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  name?: String;
+  name: String;
 }
 
 export interface EventPreviousValuesPromise

@@ -8,7 +8,13 @@ const typeDefs = gql`
     name: String
     password: String!
     phone: String
+    events: [String] 
   }
+
+  
+  # extend type Event @key(fields: "id") {
+  #   id: ID! @external
+  # }
 
   extend type Query {
     me: User

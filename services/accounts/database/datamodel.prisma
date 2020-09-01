@@ -11,5 +11,7 @@ type User implements Model {
   email: String! @unique
   name: String
   password: String!
-  phone: String
+  events: [String!]
 }
+
+

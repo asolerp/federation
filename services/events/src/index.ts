@@ -4,17 +4,12 @@ import { buildFederatedSchema } from "@apollo/federation"
 import {resolvers} from './resolvers/index'
 import { natsWrapper } from './nats-wrapper'
 
-import { Prisma } from 'prisma-binding'
-import path from 'path'
+import { db } from './db'
 import { typeDefs } from './schema'
 
 const port = 4002
 
-const db = new Prisma({
-  typeDefs: path.resolve(__dirname, '../src/generated/prisma-schema.graphql'),
-  endpoint: process.env.PRISMA_URL,
-  secret: "mysecret"
-})
+
 
 const server = new ApolloServer({
   context: ({req}) => {
