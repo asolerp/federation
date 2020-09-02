@@ -13,11 +13,11 @@ type BatchPayload {
 scalar DateTime
 
 type Event {
-  id: String
+  eventID: String
 }
 
 input EventCreateInput {
-  id: String
+  eventID: String
 }
 
 input EventCreateManyInput {
@@ -25,45 +25,45 @@ input EventCreateManyInput {
 }
 
 input EventRestrictedWhereInput {
-  id: String
-  id_not: String
-  id_in: [String!]
-  id_not_in: [String!]
-  id_lt: String
-  id_lte: String
-  id_gt: String
-  id_gte: String
-  id_contains: String
-  id_not_contains: String
-  id_starts_with: String
-  id_not_starts_with: String
-  id_ends_with: String
-  id_not_ends_with: String
+  eventID: String
+  eventID_not: String
+  eventID_in: [String!]
+  eventID_not_in: [String!]
+  eventID_lt: String
+  eventID_lte: String
+  eventID_gt: String
+  eventID_gte: String
+  eventID_contains: String
+  eventID_not_contains: String
+  eventID_starts_with: String
+  eventID_not_starts_with: String
+  eventID_ends_with: String
+  eventID_not_ends_with: String
   AND: [EventRestrictedWhereInput!]
 }
 
 input EventScalarWhereInput {
-  id: String
-  id_not: String
-  id_in: [String!]
-  id_not_in: [String!]
-  id_lt: String
-  id_lte: String
-  id_gt: String
-  id_gte: String
-  id_contains: String
-  id_not_contains: String
-  id_starts_with: String
-  id_not_starts_with: String
-  id_ends_with: String
-  id_not_ends_with: String
+  eventID: String
+  eventID_not: String
+  eventID_in: [String!]
+  eventID_not_in: [String!]
+  eventID_lt: String
+  eventID_lte: String
+  eventID_gt: String
+  eventID_gte: String
+  eventID_contains: String
+  eventID_not_contains: String
+  eventID_starts_with: String
+  eventID_not_starts_with: String
+  eventID_ends_with: String
+  eventID_not_ends_with: String
   AND: [EventScalarWhereInput!]
   OR: [EventScalarWhereInput!]
   NOT: [EventScalarWhereInput!]
 }
 
 input EventUpdateManyDataInput {
-  id: String
+  eventID: String
 }
 
 input EventUpdateManyInput {
@@ -78,20 +78,20 @@ input EventUpdateManyWithWhereNestedInput {
 }
 
 input EventWhereInput {
-  id: String
-  id_not: String
-  id_in: [String!]
-  id_not_in: [String!]
-  id_lt: String
-  id_lte: String
-  id_gt: String
-  id_gte: String
-  id_contains: String
-  id_not_contains: String
-  id_starts_with: String
-  id_not_starts_with: String
-  id_ends_with: String
-  id_not_ends_with: String
+  eventID: String
+  eventID_not: String
+  eventID_in: [String!]
+  eventID_not_in: [String!]
+  eventID_lt: String
+  eventID_lte: String
+  eventID_gt: String
+  eventID_gte: String
+  eventID_contains: String
+  eventID_not_contains: String
+  eventID_starts_with: String
+  eventID_not_starts_with: String
+  eventID_ends_with: String
+  eventID_not_ends_with: String
   AND: [EventWhereInput!]
 }
 

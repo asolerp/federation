@@ -218,38 +218,38 @@ export interface UserWhereInput {
 }
 
 export interface EventWhereInput {
-  id?: Maybe<String>;
-  id_not?: Maybe<String>;
-  id_in?: Maybe<String[] | String>;
-  id_not_in?: Maybe<String[] | String>;
-  id_lt?: Maybe<String>;
-  id_lte?: Maybe<String>;
-  id_gt?: Maybe<String>;
-  id_gte?: Maybe<String>;
-  id_contains?: Maybe<String>;
-  id_not_contains?: Maybe<String>;
-  id_starts_with?: Maybe<String>;
-  id_not_starts_with?: Maybe<String>;
-  id_ends_with?: Maybe<String>;
-  id_not_ends_with?: Maybe<String>;
+  eventID?: Maybe<String>;
+  eventID_not?: Maybe<String>;
+  eventID_in?: Maybe<String[] | String>;
+  eventID_not_in?: Maybe<String[] | String>;
+  eventID_lt?: Maybe<String>;
+  eventID_lte?: Maybe<String>;
+  eventID_gt?: Maybe<String>;
+  eventID_gte?: Maybe<String>;
+  eventID_contains?: Maybe<String>;
+  eventID_not_contains?: Maybe<String>;
+  eventID_starts_with?: Maybe<String>;
+  eventID_not_starts_with?: Maybe<String>;
+  eventID_ends_with?: Maybe<String>;
+  eventID_not_ends_with?: Maybe<String>;
   AND?: Maybe<EventWhereInput[] | EventWhereInput>;
 }
 
 export interface EventRestrictedWhereInput {
-  id?: Maybe<String>;
-  id_not?: Maybe<String>;
-  id_in?: Maybe<String[] | String>;
-  id_not_in?: Maybe<String[] | String>;
-  id_lt?: Maybe<String>;
-  id_lte?: Maybe<String>;
-  id_gt?: Maybe<String>;
-  id_gte?: Maybe<String>;
-  id_contains?: Maybe<String>;
-  id_not_contains?: Maybe<String>;
-  id_starts_with?: Maybe<String>;
-  id_not_starts_with?: Maybe<String>;
-  id_ends_with?: Maybe<String>;
-  id_not_ends_with?: Maybe<String>;
+  eventID?: Maybe<String>;
+  eventID_not?: Maybe<String>;
+  eventID_in?: Maybe<String[] | String>;
+  eventID_not_in?: Maybe<String[] | String>;
+  eventID_lt?: Maybe<String>;
+  eventID_lte?: Maybe<String>;
+  eventID_gt?: Maybe<String>;
+  eventID_gte?: Maybe<String>;
+  eventID_contains?: Maybe<String>;
+  eventID_not_contains?: Maybe<String>;
+  eventID_starts_with?: Maybe<String>;
+  eventID_not_starts_with?: Maybe<String>;
+  eventID_ends_with?: Maybe<String>;
+  eventID_not_ends_with?: Maybe<String>;
   AND?: Maybe<EventRestrictedWhereInput[] | EventRestrictedWhereInput>;
 }
 
@@ -267,7 +267,7 @@ export interface EventCreateManyInput {
 }
 
 export interface EventCreateInput {
-  id?: Maybe<String>;
+  eventID?: Maybe<String>;
 }
 
 export interface UserUpdateInput {
@@ -287,20 +287,20 @@ export interface EventUpdateManyInput {
 }
 
 export interface EventScalarWhereInput {
-  id?: Maybe<String>;
-  id_not?: Maybe<String>;
-  id_in?: Maybe<String[] | String>;
-  id_not_in?: Maybe<String[] | String>;
-  id_lt?: Maybe<String>;
-  id_lte?: Maybe<String>;
-  id_gt?: Maybe<String>;
-  id_gte?: Maybe<String>;
-  id_contains?: Maybe<String>;
-  id_not_contains?: Maybe<String>;
-  id_starts_with?: Maybe<String>;
-  id_not_starts_with?: Maybe<String>;
-  id_ends_with?: Maybe<String>;
-  id_not_ends_with?: Maybe<String>;
+  eventID?: Maybe<String>;
+  eventID_not?: Maybe<String>;
+  eventID_in?: Maybe<String[] | String>;
+  eventID_not_in?: Maybe<String[] | String>;
+  eventID_lt?: Maybe<String>;
+  eventID_lte?: Maybe<String>;
+  eventID_gt?: Maybe<String>;
+  eventID_gte?: Maybe<String>;
+  eventID_contains?: Maybe<String>;
+  eventID_not_contains?: Maybe<String>;
+  eventID_starts_with?: Maybe<String>;
+  eventID_not_starts_with?: Maybe<String>;
+  eventID_ends_with?: Maybe<String>;
+  eventID_not_ends_with?: Maybe<String>;
   AND?: Maybe<EventScalarWhereInput[] | EventScalarWhereInput>;
   OR?: Maybe<EventScalarWhereInput[] | EventScalarWhereInput>;
   NOT?: Maybe<EventScalarWhereInput[] | EventScalarWhereInput>;
@@ -312,7 +312,7 @@ export interface EventUpdateManyWithWhereNestedInput {
 }
 
 export interface EventUpdateManyDataInput {
-  id?: Maybe<String>;
+  eventID?: Maybe<String>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -384,23 +384,23 @@ export interface UserNullablePromise
 }
 
 export interface Event {
-  id?: String;
+  eventID?: String;
 }
 
 export interface EventPromise extends Promise<Event>, Fragmentable {
-  id: () => Promise<String>;
+  eventID: () => Promise<String>;
 }
 
 export interface EventSubscription
   extends Promise<AsyncIterator<Event>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<String>>;
+  eventID: () => Promise<AsyncIterator<String>>;
 }
 
 export interface EventNullablePromise
   extends Promise<Event | null>,
     Fragmentable {
-  id: () => Promise<String>;
+  eventID: () => Promise<String>;
 }
 
 export interface UserConnection {
