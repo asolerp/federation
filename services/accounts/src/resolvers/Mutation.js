@@ -4,7 +4,7 @@ const jwt = require ('jsonwebtoken')
 
 const Mutation = {
   async signUpUser(info, args, context) {
-    console.log("Args", args)
+
     const user = await context.prisma.createUser({
       name: args.name,
       email: args.email,
