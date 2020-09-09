@@ -1,4 +1,4 @@
 export enum Subjects {
-  EventCreated = 'event:created',
+  MatchCreated = 'match:created',
   UserCreated = 'user:created'
 }

@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.21.0 ()
   creationTimestamp: null
   labels:
-    io.kompose.service: accounts
-  name: accounts
+    io.kompose.service: matches
+  name: matches
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: accounts
+      io.kompose.service: matches
   strategy: {}
   template:
     metadata:
@@ -21,25 +21,25 @@ spec:
         kompose.version: 1.21.0 ()
       creationTimestamp: null
       labels:
-        io.kompose.service: accounts
+        io.kompose.service: matches
     spec:
       containers:
       - env:
         - name: MONGO_URI
-          value: mongodb+srv://admin:Ayc.051213@federation.i80y9.mongodb.net/users_dev?retryWrites=true&w=majority 
+          value: mongodb+srv://admin:Ayc.051213@federation.i80y9.mongodb.net/matches_dev?retryWrites=true&w=majority 
         - name: NATS_CLIEND_ID
-          value: accounts-nats
+          value: matches-nats
         - name: NATS_CLUSTER_ID
           value: federation
         - name: NATS_URL
           value: http://nats-srv:4222
         - name: PRISMA_URL
-          value: http://prisma-accounts:4466/accounts/dev
-        image: asolerp/accounts
+          value: http://prisma-matches:4467/matches/dev
+        image: asolerp/matches
         imagePullPolicy: ""
-        name: accounts
+        name: matches
         ports:
-        - containerPort: 4001
+        - containerPort: 4002
         resources: {}
       restartPolicy: Always
       serviceAccountName: ""
@@ -55,14 +55,17 @@ metadata:
     kompose.version: 1.21.0 ()
   creationTimestamp: null
   labels:
-    io.kompose.service: accounts
-  name: accounts
+    io.kompose.service: matches
+  name: matches
 spec:
   ports:
-  - name: "4001"
-    port: 4001
-    targetPort: 4001
+  - name: "4002"
+    port: 4002
+    targetPort: 4002
   selector:
-    io.kompose.service: accounts
+    io.kompose.service: matches
 status:
   loadBalancer: {}
+
+  
+  

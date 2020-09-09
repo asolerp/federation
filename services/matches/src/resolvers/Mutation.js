@@ -3,19 +3,17 @@ const {  EventCreatedPublisher } = require('../events/publisher/event-created-pu
 const { natsWrapper } = require('../nats-wrapper')
 
 const Mutation = {
-  async newEvent(info, args, context) {
+  async newMatch(info, args, { user,  models: { Match }}) {
 
     console.log("Creando nuevo evento...")
-    const event = await context.db.mutation.createEvent({
-      data: {...args, userID: context.user.id}
-    }, info)
+    const match = await Match.build({ name: args.name, admins: args.admins})
 
-    if (event) {
+    if (match) {
       const eventCreated = {
-        id: event.id,
+        id: match.id,
         version: 0,
-        name: event.name,
-        userID: context.user.id
+        name: match.name,
+        userID: user.id
       }
   
       console.log("Created event: ", eventCreated)
@@ -23,8 +21,9 @@ const Mutation = {
       new EventCreatedPublisher(natsWrapper.client).publish(eventCreated)
     }
 
+    await match.save();
 
-    return event
+    return match
   }
 }
 

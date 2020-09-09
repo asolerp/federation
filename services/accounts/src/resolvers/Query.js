@@ -1,4 +1,6 @@
-const { comparePassword } = require('../utils/encryption')
+const { Password } = require('../services/password')
+const { Jwtoken } = require('../services/jwt')
+
 const { assertAuthenticated } = require('../perm')
 const jwt = require('jsonwebtoken')
 
@@ -6,31 +8,21 @@ const jwt = require('jsonwebtoken')
 const Query = {
 
   // LOGIN USER
-  async loginUser(info, args, context) {
-    const user = await context.prisma.user({
-      where: {
-        email: args.email,
-      }
-    }, info)
+  async loginUser(info, args, { models: { User } } ) {
+    const user = await User.findOne({ email: args.email})
     if (!user) throw new Error('No User Found');
     
-    const isValid = comparePassword(args.password, user.password)
+    const isValid = Password.comparePassword(args.password, user.password)
     if (!isValid) throw new Error('Something went wrong...');
 
-    return jwt.sign({
-      id: user.id,
-      email: user.email
-    }, 'f1BtnWgD3VKY', { algorithm: "HS256", subject: user.id, expiresIn: "1d" })
+    return Jwtoken.sign(user.id, user.email)
   },
 
   // GET USER LOGED IN
-  async me (info, args, context) {
-    assertAuthenticated(context)
-    return await context.prisma.user({
-      where: {
-        id: context.user.id
-      }
-    }, info)
+  async me (info, args, { user, models: { User } } ) {
+    console.log(user)
+    assertAuthenticated(user)
+    return await User.findById(user.id)
   },
 
   // GET USER BY ID
@@ -43,9 +35,8 @@ const Query = {
   },
 
   // GET ALL USERS
-  async users(info, args, context) {
-    const users = await context.prisma.users()
-    console.log(users)
+  async users(info, args, { models: { User }}) {
+    const users = await User.find()
     return users
   }
 }

@@ -1,27 +1,27 @@
 import { AuthenticationError } from 'apollo-server'
 
 //TS
-import { ContextWithUser } from './ts/interfaces/context'
+import { UserContext, MessageContext } from './ts/interfaces/context'
 
-const assertAuthenticated = (context: ContextWithUser) => {
-  if (!context.user) {
+const assertAuthenticated = (user: UserContext) => {
+  if (!user) {
     throw new AuthenticationError('You need to be logged in');
   }
 };
 
-const assertAdmin = (context: ContextWithUser) => {
-  assertAuthenticated(context);
+const assertAdmin = (user: UserContext) => {
+  assertAuthenticated(user);
 
-  if (!context.user!.roles!.includes('ADMIN')) {
+  if (user!.roles!.includes('ADMIN')) {
     throw new AuthenticationError('You need to be a admin');
   }
 };
 
-const assertMessageParticipant = (messageId: string, context: ContextWithUser) => {
-  assertAuthenticated(context)
+const assertMessageParticipant = (messageId: string, user: UserContext, message: MessageContext) => {
+  assertAuthenticated(user)
 
-  const participantIds: string[] = context.Message.getParticipantIds(messageId)
-  if (!participantIds.includes(context.user.id)) {
+  const participantIds: string[] = message.getParticipantIds(messageId)
+  if (!participantIds.includes(user.id)) {
     throw new AuthenticationError('You need to be a participant in the message');
   }
 }

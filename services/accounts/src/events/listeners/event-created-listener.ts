@@ -2,7 +2,7 @@ import { Subjects, Listener, EventCreatedEvent } from '@aspfederation/common'
 import { queueGroupName } from './queue-group-name'
 import { Message } from 'node-nats-streaming'
 
-import { prisma } from '../../generated/prisma-client'
+import { User } from '../../models/user'
 
 
 export class EventCreatedListener extends Listener<EventCreatedEvent> {
@@ -11,14 +11,21 @@ export class EventCreatedListener extends Listener<EventCreatedEvent> {
   queueGroupName = queueGroupName
 
   async onMessage(data: EventCreatedEvent['data'], msg: Message) {
-    const { id, userID} = data
+    const { id, userID } = data
+    console.log("Actualizando usuario...")
 
     try {
-     console.log("Actualizaond usuario...")
-     await prisma.updateUser({
-        where: { id: userID },
-        data: { events: { create: { eventID: id } } },
-      })
+
+     const user = await User.findOne({
+      _id: userID,
+    })
+    if (!user) {
+      throw new Error('User not found')
+    }
+ 
+    await User.updateOne({ _id: userID }, { $push: { matches: id } } )
+    console.log("Usuario actualizado...")
+
     } catch (err) {
       console.log(err)
     }

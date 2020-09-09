@@ -1,9 +1,8 @@
-export interface ContextWithUser {  
-  Message: {
+export interface UserContext {  
+  id: string
+  roles: string[] | undefined
+}
+
+export interface MessageContext {
     getParticipantIds: (messageId: string) => []
-  }
-  user: {
-    id: string
-    roles: string[] | undefined
-  }
 }

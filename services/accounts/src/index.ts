@@ -1,13 +1,14 @@
+import mongoose from 'mongoose'
+
 import { ApolloServer } from "apollo-server"
 import { buildFederatedSchema } from "@apollo/federation"
 
 import {resolvers} from './resolvers/index'
 import { natsWrapper } from './nats-wrapper'
 
-import {prisma} from './generated/prisma-client';
+// import {prisma} from './generated/prisma-client';
 
-
-// import  { db } from './db'
+import { User } from './models/user'
 
 import { typeDefs } from './schema'
 import { EventCreatedListener } from "./events/listeners/event-created-listener"
@@ -17,7 +18,7 @@ const port = 4001
 const server = new ApolloServer({
   context: ({req}) => {
     const user = req.headers.user ? JSON.parse(req.headers.user.toString()) : null;
-    return { ...req, prisma, user }
+    return { ...req, user, models: { User } }
   },
   schema: buildFederatedSchema([
     {
@@ -28,6 +29,9 @@ const server = new ApolloServer({
 })
 
 const start = async () => {
+  if (!process.env.MONGO_URI) {
+    throw new Error('MONGO_URI must be defined');
+  }
   if (!process.env.NATS_CLIEND_ID) {
     throw new Error('NATS_CLIEND_ID must be defined');
   }
@@ -39,6 +43,15 @@ const start = async () => {
   }
 
   try {
+
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    })
+
+    console.log('Connected to MongoDb');
+
     await natsWrapper.connect(
       process.env.NATS_CLUSTER_ID, 
       process.env.NATS_CLIEND_ID, 

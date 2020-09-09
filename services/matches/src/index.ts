@@ -1,11 +1,14 @@
+import mongoose from 'mongoose'
+
 import { ApolloServer } from "apollo-server"
 import { buildFederatedSchema } from "@apollo/federation"
 
 import {resolvers} from './resolvers/index'
 import { natsWrapper } from './nats-wrapper'
 
-import { db } from './db'
 import { typeDefs } from './schema'
+
+import { Match } from './models/match'
 
 const port = 4002
 
@@ -14,7 +17,7 @@ const port = 4002
 const server = new ApolloServer({
   context: ({req}) => {
     const user = req.headers.user ? JSON.parse(req.headers.user.toString()) : null;
-    return { ...req, db, user }
+    return { ...req, models: { Match }, user }
   },
   schema: buildFederatedSchema([
     {
@@ -25,6 +28,7 @@ const server = new ApolloServer({
 })
 
 const start = async () => {
+  
   if (!process.env.NATS_CLIEND_ID) {
     throw new Error('NATS_CLIEND_ID must be defined');
   }
@@ -36,6 +40,15 @@ const start = async () => {
   }
 
   try {
+
+    await mongoose.connect(process.env.MONGO_URI || '', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    })
+
+    console.log('Connected to MongoDb');
+
     await natsWrapper.connect(
       process.env.NATS_CLUSTER_ID, 
       process.env.NATS_CLIEND_ID, 

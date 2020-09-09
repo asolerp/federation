@@ -2,28 +2,29 @@ import { gql } from "apollo-server"
 
 const typeDefs = gql`
 
-  type User @key(fields: "id") {
+  type UserEntity @key(fields: "id") {
     id: ID!
-    email: String!
     name: String
+    email: String!
     password: String!
-    phone: String
-    events: [Event!] 
+    # name: String
+    # phone: String
+    matches: [MatchEntity!] 
   }
 
-  extend type Event @key(fields: "id") {
+  extend type MatchEntity @key(fields: "id") {
     id: ID! @external
   }
 
   extend type Query {
-    me: User
-    user(id: ID!): User
-    users: [User]
+    me: UserEntity
+    user(id: ID!): UserEntity
+    users: [UserEntity]
     loginUser(email: String, password: String): String
   }
 
   extend type Mutation {
-    signUpUser(id: String, name: String, email: String, password: String, eventos: [String]): String
+    signUpUser(email: String, password: String): String
   }
 
 

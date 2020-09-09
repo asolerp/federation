@@ -4,7 +4,7 @@
 
 # export PRISMA_MANAGEMENT_API_SECRET=***
 
-./docker-scripts/wait-for-it.sh prisma-accounts:4466/accounts/dev -- prisma deploy --force --env-file ./env.dev
+./docker-scripts/wait-for-it.sh nats-srv:4222
 
 # cd /app
 

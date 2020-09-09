@@ -1,13 +1,13 @@
 import { Stan } from 'node-nats-streaming'
 import { Subjects } from './subjects'
 
-interface Event {
+interface Match {
   subject: Subjects
   data: any
 }
 
 
-export abstract class Publisher<T extends Event> {
+export abstract class Publisher<T extends Match> {
   abstract subject: T['subject']
   private client: Stan
 

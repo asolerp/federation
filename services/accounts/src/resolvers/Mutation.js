@@ -1,20 +1,11 @@
-const { encrypt } = require('../utils/encryption')
-const jwt = require ('jsonwebtoken')
-
+const { Jwtoken } = require('../services/jwt')
 
 const Mutation = {
-  async signUpUser(info, args, context) {
+  async signUpUser(info, args, { models: { User }}) {
+    const user = User.build({ email: args.email, password: args.password });
+    await user.save();
 
-    const user = await context.prisma.createUser({
-      name: args.name,
-      email: args.email,
-      password: await encrypt(args.password)
-    },info)
-
-    return jwt.sign({
-      id: user.id,
-      email: user.email
-    }, 'f1BtnWgD3VKY', { algorithm: "HS256", subject: user.id, expiresIn: "1d" })
+    return Jwtoken.sign(user.id, user.email)
 
   }
 }
