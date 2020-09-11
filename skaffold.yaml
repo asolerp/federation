@@ -5,6 +5,7 @@ deploy:
     manifests:
       - ./infra/k8s/accounts-dpl.yaml
       - ./infra/k8s/matches-dpl.yaml
+      - ./infra/k8s/phone-verification-dpl.yaml
       - ./infra/k8s/gateway-dpl.yaml
       - ./infra/k8s/nats-dpl.yaml
 build:
@@ -21,6 +22,14 @@ build:
             dest: .
     - image: asolerp/matches
       context: services/matches
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: asolerp/phone-verification
+      context: services/phone-verification
       docker:
         dockerfile: Dockerfile
       sync:

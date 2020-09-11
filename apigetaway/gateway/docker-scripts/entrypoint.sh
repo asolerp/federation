@@ -2,7 +2,7 @@
 
 # Wait until prisma is avaliable, and download schemas
 
-./docker-scripts/wait-for-it.sh -t 20 accounts:4001 events:4002
+./docker-scripts/wait-for-it.sh -t 10 accounts:4001 events:4002 phone-verification:4003
 
 sleep 20
 

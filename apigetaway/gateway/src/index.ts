@@ -19,6 +19,7 @@ const gateway = new ApolloGateway({
   serviceList: [
     { name: 'accounts', url: 'http://accounts:4001/' },
     { name: 'events', url: 'http://events:4002/' },
+    { name: 'phone-verification', url: 'http://phone-verification:4003/' },
   ],
   buildService({ name, url }) {
     return new RemoteGraphQLDataSource({

@@ -6,7 +6,6 @@ const UserEntity = {
       return await User.findOne({ _id: user.id });
   },
   matches(user) {
-    console.log(user)
     return user.matches.map(matchID => ({ __typename: "MatchEntity", id: matchID }))
   },
 }
