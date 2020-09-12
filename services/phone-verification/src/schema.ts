@@ -4,7 +4,11 @@ const typeDefs = gql`
 
   scalar Date
 
-  type PhoneVerificationEntity @key(fields: "id") {
+  input PhoneVerificatonInput {
+    phone: String!
+  }
+
+  type PhoneEntity @key(fields: "id") {
     id: ID!
     user: UserEntity!
     code: String!
@@ -17,7 +21,12 @@ const typeDefs = gql`
   }
   
   extend type Query {
-    phoneVerification(id: String): PhoneVerificationEntity
+    phoneVerification(id: String): PhoneEntity
+  }
+
+  extend type Mutation {
+    updatePhoneVerification(phone: String!): PhoneEntity
+    codeVerification(code: String!): PhoneEntity
   }
 
 

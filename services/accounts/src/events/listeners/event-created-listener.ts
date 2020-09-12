@@ -1,16 +1,16 @@
-import { Subjects, Listener, EventCreatedEvent } from '@aspfederation/common'
+import { Subjects, Listener, EventCreatedMatch } from '@aspfederation/common'
 import { queueGroupName } from './queue-group-name'
 import { Message } from 'node-nats-streaming'
 
 import { User } from '../../models/user'
 
 
-export class EventCreatedListener extends Listener<EventCreatedEvent> {
+export class EventCreatedListener extends Listener<EventCreatedMatch> {
 
-  readonly subject = Subjects.EventCreated
+  readonly subject = Subjects.MatchCreated
   queueGroupName = queueGroupName
 
-  async onMessage(data: EventCreatedEvent['data'], msg: Message) {
+  async onMessage(data: EventCreatedMatch['data'], msg: Message) {
     const { id, userID } = data
     console.log("Actualizando usuario...")
 

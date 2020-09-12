@@ -8,8 +8,17 @@ const typeDefs = gql`
     email: String!
     password: String!
     # name: String
-    # phone: String
+    phone: PhoneEntity
     matches: [MatchEntity!] 
+  }
+
+  type LoginRespone {
+    token: String,
+    phoneVerified: Boolean
+  }
+
+  extend type PhoneEntity @key(fields: "id") {
+    id: ID! @external
   }
 
   extend type MatchEntity @key(fields: "id") {
@@ -20,7 +29,7 @@ const typeDefs = gql`
     me: UserEntity
     user(id: ID!): UserEntity
     users: [UserEntity]
-    loginUser(email: String, password: String): String
+    loginUser(email: String, password: String): LoginRespone
   }
 
   extend type Mutation {

@@ -3,6 +3,7 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 
 interface PhoneVerificationDoc extends mongoose.Document {
+  _id: mongoose.Schema.Types.ObjectId,
   user: string,
   code: string,
   phone: string,
@@ -10,6 +11,7 @@ interface PhoneVerificationDoc extends mongoose.Document {
 }
 
 interface PhoneVerificationDocAttrs {
+  _id: mongoose.Schema.Types.ObjectId,
   user: string,
   code: string,
   phone: string,
@@ -22,9 +24,14 @@ interface PhoneVerificationModel extends mongoose.Model<PhoneVerificationDoc> {
 
 const phoneVerificationSchema = new mongoose.Schema(
   {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true
+    },
     user: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     code: {
       type: String,

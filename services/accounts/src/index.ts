@@ -12,6 +12,7 @@ import { User } from './models/user'
 
 import { typeDefs } from './schema'
 import { EventCreatedListener } from "./events/listeners/event-created-listener"
+import { PhoneCreatedListener } from './events/listeners/phone-created-listener'
 
 const port = 4001
 
@@ -67,6 +68,7 @@ const start = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close());
 
     new EventCreatedListener(natsWrapper.client).listen()
+    new PhoneCreatedListener(natsWrapper.client).listen()
   
   } catch (err) {
     console.log(err)
