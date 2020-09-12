@@ -5,3 +5,4 @@ export * from './events/subjects';
 
 export * from './events/match-created-event'
 export * from './events/user-created-event'
+export * from './events/phone-created-event'
