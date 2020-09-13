@@ -4,9 +4,6 @@ const typeDefs = gql`
 
   scalar Date
 
-  input PhoneVerificatonInput {
-    phone: String!
-  }
 
   type PhoneEntity @key(fields: "id") {
     id: ID!

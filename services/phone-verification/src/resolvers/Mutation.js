@@ -9,6 +9,7 @@ const Mutation = {
 
     const code = Math.floor(100000 + Math.random() * 900000)
     const verification = await PhoneVerification.findOne({user: user.id})
+    console.log(verification)
 
     if (verification) {
       verification.phone = args.phone
@@ -26,6 +27,7 @@ const Mutation = {
     console.log("Verificando código...")
 
     const userPhone = await PhoneVerification.findOne({user: user.id})
+
     if (userPhone) {
       if (userPhone.code === args.code) {
         userPhone.verified = true
@@ -33,8 +35,12 @@ const Mutation = {
       } else {
         throw new Error("Code is not correct")
       }
+    } else {
+      throw new Error("User phone not found")
     }
-    throw new Error("User phone not found")
+
+    return userPhone
+
   }
 }
 

@@ -66,6 +66,6 @@ phoneVerificationSchema.statics.build = (attrs: PhoneVerificationDocAttrs) => {
   return new PhoneVerification(attrs)
 }
 
-const PhoneVerification = mongoose.model<PhoneVerificationDoc, PhoneVerificationModel>('PhoneVerificator', phoneVerificationSchema)
+const PhoneVerification = mongoose.model<PhoneVerificationDoc, PhoneVerificationModel>('PhoneVerification', phoneVerificationSchema)
 
 export { PhoneVerification }

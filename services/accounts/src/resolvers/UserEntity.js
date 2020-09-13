@@ -9,7 +9,7 @@ const UserEntity = {
     return user.matches.map(matchID => ({ __typename: "MatchEntity", id: matchID }))
   },
   phone(user) {
-    return ({__typename: "PhoneEntity", id: user.phone})
+    return ({__typename: "PhoneEntity", id: user.phoneID})
   }
 }
 
