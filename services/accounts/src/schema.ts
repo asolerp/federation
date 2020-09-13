@@ -14,7 +14,7 @@ const typeDefs = gql`
 
   type LoginRespone {
     token: String,
-    phoneVerified: Boolean
+    user: UserEntity
   }
 
   extend type PhoneEntity @key(fields: "id") {

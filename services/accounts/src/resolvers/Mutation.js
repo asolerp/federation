@@ -8,6 +8,13 @@ const Mutation = {
 
     const phoneID = mongoose.Types.ObjectId()
 
+    const findUser = await User.findOne({ email: args.email})
+    console.log(findUser) 
+    
+    if (findUser) {
+      throw new Error("User already exists")
+    }
+
     const user = User.build({ email: args.email, password: args.password, phoneID });
     
     if (user) {

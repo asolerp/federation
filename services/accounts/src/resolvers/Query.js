@@ -15,7 +15,7 @@ const Query = {
     const isValid = Password.comparePassword(args.password, user.password)
     if (!isValid) throw new Error('Something went wrong...');
 
-    return Jwtoken.sign(user.id, user.email)
+    return ({ token: Jwtoken.sign(user.id, user.email), user: user})
   },
 
   // GET USER LOGED IN
