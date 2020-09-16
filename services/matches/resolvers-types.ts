@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
   _FieldSet: any;
 };
 
@@ -17,32 +18,41 @@ export type Scalars = {
 
 
 
-export type Event = {
-  __typename?: 'Event';
+
+export type MatchEntity = {
+  __typename?: 'MatchEntity';
   id: Scalars['ID'];
   name: Scalars['String'];
-  userID: Scalars['ID'];
+  admins?: Maybe<Array<Maybe<UserEntity>>>;
+  date_event?: Maybe<Scalars['Date']>;
+  event_image?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  newEvent?: Maybe<Event>;
+  newMatch?: Maybe<MatchEntity>;
 };
 
 
-export type MutationNewEventArgs = {
+export type MutationNewMatchArgs = {
   name?: Maybe<Scalars['String']>;
+  admins?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type Query = {
   __typename?: 'Query';
-  event?: Maybe<Event>;
-  events?: Maybe<Array<Maybe<Event>>>;
+  match?: Maybe<MatchEntity>;
+  matches?: Maybe<Array<Maybe<MatchEntity>>>;
 };
 
 
-export type QueryEventArgs = {
+export type QueryMatchArgs = {
   id?: Maybe<Scalars['String']>;
+};
+
+export type UserEntity = {
+  __typename?: 'UserEntity';
+  id: Scalars['ID'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -137,8 +147,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Event: ResolverTypeWrapper<Event>;
+  MatchEntity: ResolverTypeWrapper<MatchEntity>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  UserEntity: ResolverTypeWrapper<UserEntity>;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
@@ -147,32 +159,48 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Query: {};
   String: Scalars['String'];
-  Event: Event;
+  MatchEntity: MatchEntity;
   ID: Scalars['ID'];
+  UserEntity: UserEntity;
+  Date: Scalars['Date'];
   Mutation: {};
   Boolean: Scalars['Boolean'];
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  event?: Resolver<Maybe<ResolversTypes['Event']>, ParentType, ContextType, RequireFields<QueryEventArgs, never>>;
-  events?: Resolver<Maybe<Array<Maybe<ResolversTypes['Event']>>>, ParentType, ContextType>;
+  match?: Resolver<Maybe<ResolversTypes['MatchEntity']>, ParentType, ContextType, RequireFields<QueryMatchArgs, never>>;
+  matches?: Resolver<Maybe<Array<Maybe<ResolversTypes['MatchEntity']>>>, ParentType, ContextType>;
 }>;
 
-export type EventResolvers<ContextType = any, ParentType extends ResolversParentTypes['Event'] = ResolversParentTypes['Event']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Event']>, { __typename: 'Event' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+export type MatchEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['MatchEntity'] = ResolversParentTypes['MatchEntity']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['MatchEntity']>, { __typename: 'MatchEntity' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  userID?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  admins?: Resolver<Maybe<Array<Maybe<ResolversTypes['UserEntity']>>>, ParentType, ContextType>;
+  date_event?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  event_image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
+export type UserEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserEntity'] = ResolversParentTypes['UserEntity']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['UserEntity']>, { __typename: 'UserEntity' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+}>;
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  newEvent?: Resolver<Maybe<ResolversTypes['Event']>, ParentType, ContextType, RequireFields<MutationNewEventArgs, never>>;
+  newMatch?: Resolver<Maybe<ResolversTypes['MatchEntity']>, ParentType, ContextType, RequireFields<MutationNewMatchArgs, never>>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
-  Event?: EventResolvers<ContextType>;
+  MatchEntity?: MatchEntityResolvers<ContextType>;
+  UserEntity?: UserEntityResolvers<ContextType>;
+  Date?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
 }>;
 

@@ -5,7 +5,7 @@ import { ApolloGateway, RemoteGraphQLDataSource } from '@apollo/gateway'
 import { ReqWithUser } from './middlewares/req-user'
 import { app } from './app'
 
-
+const FileUploadDataSource = require('./utils/FileUploadDataSource.js');
 
 
 interface ContextWithUser {  
@@ -21,18 +21,7 @@ const gateway = new ApolloGateway({
     { name: 'events', url: 'http://matches:4002/' },
     { name: 'phone-verification', url: 'http://phone-verification:4003/' },
   ],
-  buildService({ name, url }) {
-    return new RemoteGraphQLDataSource({
-      url,
-      willSendRequest({ request, context } : { request: GraphQLRequest, context: ContextWithUser }) {
-        request.http!.headers.set(
-          "user",
-          context.user ? JSON.stringify(context.user) : '{}'
-        );
-      }
-    });
-  },
-  __exposeQueryPlanExperimental: false,
+  buildService: ({ url }) => new FileUploadDataSource({ url }),
 });
 
 (async () => {

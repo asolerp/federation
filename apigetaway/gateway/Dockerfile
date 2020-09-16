@@ -1,9 +1,9 @@
-FROM node:alpine
+FROM node:12.18.3-alpine3.12
 
 WORKDIR /app
 
 RUN npm config set unsafe-perm true 
-RUN npm install -g graphql-cli prisma nodemon
+RUN npm install -g graphql-cli nodemon
 RUN apk update && apk add bash
 
 

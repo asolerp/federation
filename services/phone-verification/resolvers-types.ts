@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
   _FieldSet: any;
 };
 
@@ -17,32 +18,45 @@ export type Scalars = {
 
 
 
-export type Event = {
-  __typename?: 'Event';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  userID: Scalars['ID'];
-};
 
 export type Mutation = {
   __typename?: 'Mutation';
-  newEvent?: Maybe<Event>;
+  updatePhoneVerification?: Maybe<PhoneEntity>;
+  codeVerification?: Maybe<PhoneEntity>;
 };
 
 
-export type MutationNewEventArgs = {
-  name?: Maybe<Scalars['String']>;
+export type MutationUpdatePhoneVerificationArgs = {
+  phone: Scalars['String'];
+};
+
+
+export type MutationCodeVerificationArgs = {
+  code: Scalars['String'];
+};
+
+export type PhoneEntity = {
+  __typename?: 'PhoneEntity';
+  id: Scalars['ID'];
+  user: UserEntity;
+  code: Scalars['String'];
+  phone: Scalars['String'];
+  verified?: Maybe<Scalars['Boolean']>;
 };
 
 export type Query = {
   __typename?: 'Query';
-  event?: Maybe<Event>;
-  events?: Maybe<Array<Maybe<Event>>>;
+  phoneVerification?: Maybe<PhoneEntity>;
 };
 
 
-export type QueryEventArgs = {
+export type QueryPhoneVerificationArgs = {
   id?: Maybe<Scalars['String']>;
+};
+
+export type UserEntity = {
+  __typename?: 'UserEntity';
+  id: Scalars['ID'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -137,43 +151,61 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Event: ResolverTypeWrapper<Event>;
+  PhoneEntity: ResolverTypeWrapper<PhoneEntity>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  Mutation: ResolverTypeWrapper<{}>;
+  UserEntity: ResolverTypeWrapper<UserEntity>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Mutation: ResolverTypeWrapper<{}>;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Query: {};
   String: Scalars['String'];
-  Event: Event;
+  PhoneEntity: PhoneEntity;
   ID: Scalars['ID'];
-  Mutation: {};
+  UserEntity: UserEntity;
   Boolean: Scalars['Boolean'];
+  Mutation: {};
+  Date: Scalars['Date'];
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  event?: Resolver<Maybe<ResolversTypes['Event']>, ParentType, ContextType, RequireFields<QueryEventArgs, never>>;
-  events?: Resolver<Maybe<Array<Maybe<ResolversTypes['Event']>>>, ParentType, ContextType>;
+  phoneVerification?: Resolver<Maybe<ResolversTypes['PhoneEntity']>, ParentType, ContextType, RequireFields<QueryPhoneVerificationArgs, never>>;
 }>;
 
-export type EventResolvers<ContextType = any, ParentType extends ResolversParentTypes['Event'] = ResolversParentTypes['Event']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Event']>, { __typename: 'Event' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+export type PhoneEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['PhoneEntity'] = ResolversParentTypes['PhoneEntity']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['PhoneEntity']>, { __typename: 'PhoneEntity' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  userID?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['UserEntity'], ParentType, ContextType>;
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  verified?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+}>;
+
+export type UserEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserEntity'] = ResolversParentTypes['UserEntity']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['UserEntity']>, { __typename: 'UserEntity' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  newEvent?: Resolver<Maybe<ResolversTypes['Event']>, ParentType, ContextType, RequireFields<MutationNewEventArgs, never>>;
+  updatePhoneVerification?: Resolver<Maybe<ResolversTypes['PhoneEntity']>, ParentType, ContextType, RequireFields<MutationUpdatePhoneVerificationArgs, 'phone'>>;
+  codeVerification?: Resolver<Maybe<ResolversTypes['PhoneEntity']>, ParentType, ContextType, RequireFields<MutationCodeVerificationArgs, 'code'>>;
 }>;
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
-  Event?: EventResolvers<ContextType>;
+  PhoneEntity?: PhoneEntityResolvers<ContextType>;
+  UserEntity?: UserEntityResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Date?: GraphQLScalarType;
 }>;
 
 

@@ -2,7 +2,7 @@ const { Password } = require('../services/password')
 const { Jwtoken } = require('../services/jwt')
 
 const { assertAuthenticated } = require('../perm')
-const jwt = require('jsonwebtoken')
+
 
 
 const Query = {
@@ -15,7 +15,10 @@ const Query = {
     const isValid = Password.comparePassword(args.password, user.password)
     if (!isValid) throw new Error('Something went wrong...');
 
-    return ({ token: Jwtoken.sign(user.id, user.email), user: user})
+    return { 
+      token: Jwtoken.sign(user.id, user.email), 
+      user: user
+    }
   },
 
   // GET USER LOGED IN
@@ -30,7 +33,6 @@ const Query = {
     const user = await context.prisma.user({
       where: {...args}
     },info)
-    console.log("user", user.events)
     return user
   },
 

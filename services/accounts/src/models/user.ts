@@ -9,6 +9,10 @@ interface UserDoc extends mongoose.Document {
   matches: [string]
   profileImage: string
   phoneID: string
+  age: number,
+  height: number,
+  nationality: string,
+  position: string
   // teams: [TeamDoc]
   // stats: StatDoc
 }
@@ -19,7 +23,11 @@ interface UserAttrs {
   password: string
   matches: [string]
   profileImage: string
-  phoneID: string
+  phoneID: string,
+  age: number,
+  height: number,
+  nationality: string,
+  position: string
   // teams: [TeamDoc]
   // stats: StatDoc
 }
@@ -39,6 +47,26 @@ const userSchema = new mongoose.Schema(
       required: false
     },
     phoneID: {
+      type: String,
+      required: false
+    },
+    profileImage: {
+      type: String,
+      required: false
+    },
+    age: {
+      type: Number,
+      required: false,
+    },
+    height: {
+      type: Number,
+      required: false,
+    },
+    nationalilty: {
+      type: String,
+      required: false
+    },
+    position: {
       type: String,
       required: false
     },
